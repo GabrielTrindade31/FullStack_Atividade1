@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gerador de Ingressos da Conferência</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header__inner">
+      <img src="./assets/logo.svg" alt="Logo da Conferência" class="logo" />
+      <h1>Gerador de Ingressos</h1>
+    </div>
+  </header>
+
+  <main class="container main-grid" id="app">
+    <section class="card form-card" aria-labelledby="form-title">
+      <h2 id="form-title">Gerar ingresso</h2>
+
+      <form id="ticket-form" novalidate>
+        <div class="field-group">
+          <label for="fullName">Nome completo</label>
+          <div class="error error--above" id="err-fullName-above" aria-live="polite"></div>
+          <input id="fullName" name="fullName" type="text" placeholder="Ex.: Ana Souza" autocomplete="name" />
+          <div class="error error--below" id="err-fullName-below" aria-live="polite"></div>
+        </div>
+
+        <div class="field-group">
+          <label for="email">E-mail</label>
+          <div class="error error--above" id="err-email-above" aria-live="polite"></div>
+          <input id="email" name="email" type="email" placeholder="voce@exemplo.com" autocomplete="email" />
+          <div class="error error--below" id="err-email-below" aria-live="polite"></div>
+        </div>
+
+        <div class="field-group">
+          <label for="github">GitHub</label>
+          <div class="hint">@opcional — adicionamos automaticamente se faltar</div>
+          <div class="error error--above" id="err-github-above" aria-live="polite"></div>
+          <input id="github" name="github" type="text" placeholder="@seuusuario" inputmode="verbatim" />
+          <div class="error error--below" id="err-github-below" aria-live="polite"></div>
+        </div>
+
+        <div class="field-group">
+          <label for="ticketType">Tipo do ingresso</label>
+          <select id="ticketType" name="ticketType">
+            <option value="standard">Standard</option>
+            <option value="vip">VIP</option>
+            <option value="speaker">Palestrante</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <span class="label-like">Avatar</span>
+          <div class="avatar-row">
+            <img id="avatarPreview" class="avatar" src="./assets/placeholder-avatar.png" alt="Prévia do avatar" />
+            <input id="avatar" name="avatar" type="file" accept="image/*" />
+          </div>
+          <div class="hint">Imagem quadrada recomendada (≥ 256×256)</div>
+        </div>
+
+        <div class="field-group">
+          <label class="checkbox">
+            <input id="agree" name="agree" type="checkbox" />
+            <span>Confirmo que os dados estão corretos</span>
+          </label>
+          <div class="error error--below" id="err-agree-below" aria-live="polite"></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <fieldset class="field-group">
+          <legend>Como exibir erros (para o vídeo)</legend>
+          <div class="radio-row">
+            <label class="radio"><input type="radio" name="errMode" value="below" checked /> Abaixo do campo</label>
+            <label class="radio"><input type="radio" name="errMode" value="above" /> Acima do campo</label>
+            <label class="radio"><input type="radio" name="errMode" value="alert" /> Alert()</label>
+            <label class="radio"><input type="radio" name="errMode" value="toast" /> Toast (canto superior direito)</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field-group">
+          <legend>Regras de nome (para o vídeo)</legend>
+          <div class="radio-row">
+            <label class="radio"><input type="radio" name="nameRule" value="firstOnly" /> Apenas primeiro nome</label>
+            <label class="radio"><input type="radio" name="nameRule" value="fullName" checked /> Nome e sobrenome</label>
+          </div>
+        </fieldset>
+
+        <div class="actions">
+          <button type="submit" class="btn btn--primary" id="btnGenerate">Gerar ingresso</button>
+          <button type="button" class="btn" id="btnReset">Limpar</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card preview-card" aria-labelledby="preview-title">
+      <h2 id="preview-title">Prévia do ingresso</h2>
+
+      <div class="ticket" role="img" aria-label="Prévia visual do ingresso">
+        <div class="ticket__header">
+          <img src="./assets/logo.svg" class="ticket__logo" alt="Logo" />
+          <div class="ticket__badge" id="previewTicketType">STANDARD</div>
+        </div>
+
+        <div class="ticket__body">
+          <div class="ticket__left">
+            <img id="previewAvatar" class="ticket__avatar" src="./assets/placeholder-avatar.png" alt="Avatar" />
+            <div class="ticket__name" id="previewName">Seu Nome</div>
+            <div class="ticket__handle" id="previewHandle">@github</div>
+          </div>
+          <div class="ticket__right">
+            <img src="./assets/placeholder-qr.svg" class="ticket__qr" alt="QR code" />
+            <div class="ticket__meta">
+              <div class="meta"><span>Evento</span><strong>FrontConf 2025</strong></div>
+              <div class="meta"><span>Data</span><strong>30 Ago 2025</strong></div>
+              <div class="meta"><span>Local</span><strong>Online</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ticket__footer">
+          <span>onemoretry.net</span>
+          <span>#TicketID-0001</span>
+        </div>
+      </div>
+
+      <div class="preview-actions">
+        <button class="btn" id="btnDownloadPNG">Baixar PNG</button>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast-root" aria-live="polite" aria-atomic="true"></div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Desafio por Frontend Mentor. Codado por Gabriel Trindade.</p>
+    </div>
+  </footer>
+
+  <script src="./script.js" defer></script>
+</body>
+</html>
