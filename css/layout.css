@@ -1,0 +1,75 @@
+/* ====== Header (flex) ====== */
+.header__inner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.header__inner h1 {
+  margin: 0;
+}
+
+/* empurra o botão Home para a direita */
+.header__inner .icon-btn {
+  margin-left: auto;
+}
+
+/* ====== Grid principal ====== */
+/* mobile-first: 1 coluna por padrão */
+.main-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  padding-block: 20px;
+}
+
+/* tablets médios (iPad Air portrait) — 2 colunas equilibradas */
+@media (min-width: 700px) and (max-width: 900px) {
+  .main-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    padding-block: 24px;
+  }
+}
+
+/* >= 900px — layout desktop padrão (form + preview) */
+@media (min-width: 900px) {
+  .main-grid {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 24px;
+    padding-block: 24px;
+  }
+}
+
+/* Nest Hub Max (1280×800) e médios/grandes: leve ajuste de proporção */
+@media (min-width: 1200px) and (max-width: 1400px) {
+  .main-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+}
+
+/* iPhone 14 Pro Max (430) e similares — tipografia ajustada */
+@media (max-width: 430px) {
+  .header__inner h1 {
+    font-size: clamp(18px, 6vw, 24px);
+  }
+}
+
+/* Galaxy Z Fold 5 fechado (344) e ultra-estreitos */
+@media (max-width: 360px) {
+  .header__inner h1 {
+    font-size: 18px;
+  }
+}
+
+/* landscape muito baixo: força coluna única para evitar cortes */
+@media (orientation: landscape) and (max-height: 500px) {
+  .main-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+  }
+
+  .header__inner h1 {
+    font-size: clamp(18px, 3vw, 22px);
+  }
+}
