@@ -4,16 +4,25 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gerador de Ingressos da Conferência</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./styles.css" />
+
+  <!-- CSS modular -->
+  <link rel="stylesheet" href="./css/variables.css" />
+  <link rel="stylesheet" href="./css/base.css" />
+  <link rel="stylesheet" href="./css/layout.css" />
+  <link rel="stylesheet" href="./css/components.css" />
+  <link rel="stylesheet" href="./css/utilities.css" />
 </head>
 <body>
   <header class="site-header">
     <div class="container header__inner">
-      <img src="./assets/logo.svg" alt="Logo da Conferência" class="logo" />
+      <div class="logo-fake">FrontConf</div>
       <h1>Gerador de Ingressos</h1>
+
+      <!-- Botões de layout extra (ex.: largura do ticket / dense mode) -->
+      <div class="layout-controls">
+        <button type="button" class="btn btn--ghost" data-layout="normal">Layout normal</button>
+        <button type="button" class="btn btn--ghost" data-layout="compact">Layout compacto</button>
+      </div>
     </div>
   </header>
 
@@ -100,9 +109,10 @@
     <section class="card preview-card" aria-labelledby="preview-title">
       <h2 id="preview-title">Prévia do ingresso</h2>
 
-      <div class="ticket" role="img" aria-label="Prévia visual do ingresso">
+      <!-- container que o canvas usará de referência para tamanhos/cores -->
+      <div class="ticket ticket--blue" id="ticketDom">
         <div class="ticket__header">
-          <img src="./assets/logo.svg" class="ticket__logo" alt="Logo" />
+          <div class="logo-fake">FrontConf</div>
           <div class="ticket__badge" id="previewTicketType">STANDARD</div>
         </div>
 
@@ -113,7 +123,7 @@
             <div class="ticket__handle" id="previewHandle">@github</div>
           </div>
           <div class="ticket__right">
-            <img src="./assets/placeholder-qr.svg" class="ticket__qr" alt="QR code" />
+            <div class="ticket__qr--empty" aria-label="QR placeholder"></div>
             <div class="ticket__meta">
               <div class="meta"><span>Evento</span><strong>FrontConf 2025</strong></div>
               <div class="meta"><span>Data</span><strong>30 Ago 2025</strong></div>
@@ -124,7 +134,7 @@
 
         <div class="ticket__footer">
           <span>onemoretry.net</span>
-          <span>#TicketID-0001</span>
+          <span id="ticketId">#TicketID-0001</span>
         </div>
       </div>
 
@@ -142,6 +152,13 @@
     </div>
   </footer>
 
-  <script src="./script.js" defer></script>
+  <!-- JS modular -->
+  <script src="./js/preview.js" defer></script>
+  <script src="./js/handle.js" defer></script>
+  <script src="./js/validation.js" defer></script>
+  <script src="./js/toast.js" defer></script>
+  <script src="./js/formModes.js" defer></script>
+  <script src="./js/download.js" defer></script>
+  <script src="./js/main.js" defer></script>
 </body>
 </html>
