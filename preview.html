@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OneMoreConf — Prévia do Ingresso</title>
+
+  <link rel="stylesheet" href="./css/variables.css" />
+  <link rel="stylesheet" href="./css/base.css" />
+  <link rel="stylesheet" href="./css/layout.css" />
+  <link rel="stylesheet" href="./css/components.css" />
+  <link rel="stylesheet" href="./css/utilities.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header__inner">
+        <h1>Pré-visualização</h1>
+        <button class="icon-btn" onclick="location.href='./index.html'" aria-label="Início">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+        </svg>
+        </button>
+    </div>
+  </header>
+
+  <main class="container" id="app">
+    <section class="card preview-card" aria-labelledby="preview-title">
+      <h2 id="preview-title">Seu ingresso</h2>
+
+      <!-- wrapper com rolagem lateral para o ticket -->
+      <div class="h-scroll">
+        <div class="ticket" id="ticketDom">
+          <div class="ticket__header">
+            <div class="logo-fake">OneMoreConf</div>
+            <div class="ticket__badge" id="previewTicketType">STANDARD</div>
+          </div>
+
+          <div class="ticket__body">
+            <div class="ticket__left">
+              <img id="previewAvatar" class="ticket__avatar" src="./assets/placeholder-avatar.png" alt="Avatar" />
+              <div class="ticket__name" id="previewName">Seu Nome</div>
+              <div class="ticket__handle" id="previewHandle">@github</div>
+            </div>
+            <div class="ticket__right">
+              <div id="ticketQr" class="ticket__qr" aria-label="QR code"></div>
+              <div class="ticket__meta">
+                <div class="meta"><span>Evento</span><strong>OneMoreConf 2025</strong></div>
+                <div class="meta"><span>Data</span><strong>30 Ago 2025</strong></div>
+                <div class="meta"><span>Local</span><strong>Online</strong></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ticket__footer">
+            <span>onemoretry.net</span>
+            <span id="ticketId">#TicketID-0001</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="preview-actions">
+        <button class="btn btn--primary" id="btnDownloadPNG">Baixar PNG</button>
+        <a class="btn" href="./form.html">Voltar e editar</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Desafio por Frontend Mentor. Codado por Gabriel Trindade.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script type="module" src="./js/main-preview.js"></script>
+</body>
+</html>

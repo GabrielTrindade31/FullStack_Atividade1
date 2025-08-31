@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gerador de Ingressos — OneMoreConf</title>
+  <title>OneMoreConf — Início</title>
 
   <link rel="stylesheet" href="./css/variables.css" />
   <link rel="stylesheet" href="./css/base.css" />
@@ -16,122 +16,28 @@
     <div class="container header__inner">
       <div class="logo-fake">OneMoreConf</div>
       <h1>Gerador de Ingressos</h1>
-
-      <div class="layout-controls">
-        <button type="button" class="btn btn--ghost" data-layout="normal">Layout normal</button>
-        <button type="button" class="btn btn--ghost" data-layout="compact">Layout compacto</button>
-      </div>
     </div>
   </header>
 
-  <main class="container main-grid" id="app">
-    <section class="card form-card" aria-labelledby="form-title">
-      <h2 id="form-title">Gerar ingresso</h2>
-
-      <form id="ticket-form" novalidate>
-        <!-- NOME COMPLETO -->
-        <div class="field-group">
-          <label for="fullName">Nome completo</label>
-          <div class="error error--above" id="err-fullName-above" aria-live="polite"></div>
-          <input id="fullName" name="fullName" type="text" placeholder="Ex.: Ana Souza" autocomplete="name" />
-        </div>
-
-        <!-- E-MAIL -->
-        <div class="field-group">
-          <label for="email">E-mail</label>
-          <div class="error error--above" id="err-email-above" aria-live="polite"></div>
-          <input id="email" name="email" type="email" placeholder="voce@exemplo.com" autocomplete="email" />
-        </div>
-
-        <!-- GITHUB -->
-        <div class="field-group">
-          <label for="github">GitHub</label>
-          <div class="hint">Adicionamos “@” automaticamente, se faltar</div>
-          <div class="error error--above" id="err-github-above" aria-live="polite"></div>
-          <input id="github" name="github" type="text" placeholder="@seuusuario" inputmode="verbatim" />
-        </div>
-
-        <!-- TIPO DO INGRESSO -->
-        <div class="field-group">
-          <label for="ticketType">Tipo do ingresso</label>
-          <select id="ticketType" name="ticketType">
-            <option value="standard">Standard</option>
-            <option value="vip">VIP</option>
-            <option value="speaker">Palestrante</option>
-          </select>
-        </div>
-
-        <!-- AVATAR -->
-        <div class="field-group">
-          <span class="label-like">Avatar</span>
-          <div class="avatar-row">
-            <img id="avatarPreview" class="avatar" src="./assets/placeholder-avatar.png" alt="Prévia do avatar" />
-            <input id="avatar" name="avatar" type="file" accept="image/*" />
-          </div>
-          <div class="hint">Imagem quadrada recomendada (≥ 256×256)</div>
-        </div>
-
-        <!-- CONFIRMAÇÃO -->
-        <div class="field-group">
-          <label class="checkbox">
-            <input id="agree" name="agree" type="checkbox" />
-            <span>Confirmo que os dados estão corretos</span>
-          </label>
-          <div class="error error--above" id="err-agree-above" aria-live="polite"></div>
-        </div>
-
-        <div class="actions">
-          <button type="submit" class="btn btn--primary" id="btnGenerate">Gerar ingresso</button>
-          <button type="button" class="btn" id="btnReset">Limpar</button>
-        </div>
-      </form>
-    </section>
-
-    <section class="card preview-card" aria-labelledby="preview-title">
-      <h2 id="preview-title">Prévia do ingresso</h2>
-
-      <div class="ticket ticket--blue" id="ticketDom">
-        <div class="ticket__header">
-          <div class="logo-fake">OneMoreConf</div>
-          <div class="ticket__badge" id="previewTicketType">STANDARD</div>
-        </div>
-
-        <div class="ticket__body">
-          <div class="ticket__left">
-            <img id="previewAvatar" class="ticket__avatar" src="./assets/placeholder-avatar.png" alt="Avatar" />
-            <div class="ticket__name" id="previewName">Seu Nome</div>
-            <div class="ticket__handle" id="previewHandle">@github</div>
-          </div>
-          <div class="ticket__right">
-            <div class="ticket__qr--empty" aria-label="QR placeholder"></div>
-            <div class="ticket__meta">
-              <div class="meta"><span>Evento</span><strong>OneMoreConf 2025</strong></div>
-              <div class="meta"><span>Data</span><strong>30 Ago 2025</strong></div>
-              <div class="meta"><span>Local</span><strong>Online</strong></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="ticket__footer">
-          <span>onemoretry.net</span>
-          <span id="ticketId">#TicketID-0001</span>
-        </div>
-      </div>
-
-      <div class="preview-actions">
-        <button class="btn" id="btnDownloadPNG">Baixar PNG</button>
+  <main class="container" style="padding-block:24px">
+    <section class="card" style="max-width:820px">
+      <h2>Bem-vindo(a)!</h2>
+      <p>Gere seu ingresso personalizado para a <strong>OneMoreConf 2025</strong> em poucos passos.</p>
+      <ul>
+        <li>Preencha seus dados no formulário;</li>
+        <li>Confirme as informações;</li>
+        <li>Visualize seu ticket e baixe em PNG.</li>
+      </ul>
+      <div style="margin-top:12px">
+        <a class="btn btn--primary" href="./form.html">Começar agora</a>
       </div>
     </section>
   </main>
-
-  <div id="toast-root" aria-live="polite" aria-atomic="true"></div>
 
   <footer class="site-footer">
     <div class="container">
       <p>Desafio por Frontend Mentor. Codado por Gabriel Trindade.</p>
     </div>
   </footer>
-
-  <script type="module" src="./js/main.js"></script>
 </body>
 </html>
