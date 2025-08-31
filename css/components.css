@@ -73,3 +73,20 @@ input[type=file]{color:var(--muted)}
   box-shadow:0 8px 24px rgba(0,0,0,.35);
   pointer-events:auto
 }
+
+.error {
+  min-height: 18px;
+  font-size: 12px;
+}
+
+
+.error.error--above {
+  color: #ff2e2e;      
+  font-weight: 800;    
+  margin-bottom: 4px; 
+}
+
+.error.error--above::before {
+  content: "* ";
+  font-weight: 900;
+}
