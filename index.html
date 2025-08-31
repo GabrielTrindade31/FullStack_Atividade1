@@ -3,9 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gerador de Ingressos da Conferência</title>
+  <title>Gerador de Ingressos — OneMoreConf</title>
 
-  <!-- CSS modular -->
   <link rel="stylesheet" href="./css/variables.css" />
   <link rel="stylesheet" href="./css/base.css" />
   <link rel="stylesheet" href="./css/layout.css" />
@@ -15,10 +14,9 @@
 <body>
   <header class="site-header">
     <div class="container header__inner">
-      <div class="logo-fake">FrontConf</div>
+      <div class="logo-fake">OneMoreConf</div>
       <h1>Gerador de Ingressos</h1>
 
-      <!-- Botões de layout extra (ex.: largura do ticket / dense mode) -->
       <div class="layout-controls">
         <button type="button" class="btn btn--ghost" data-layout="normal">Layout normal</button>
         <button type="button" class="btn btn--ghost" data-layout="compact">Layout compacto</button>
@@ -31,28 +29,29 @@
       <h2 id="form-title">Gerar ingresso</h2>
 
       <form id="ticket-form" novalidate>
+        <!-- NOME COMPLETO -->
         <div class="field-group">
           <label for="fullName">Nome completo</label>
           <div class="error error--above" id="err-fullName-above" aria-live="polite"></div>
           <input id="fullName" name="fullName" type="text" placeholder="Ex.: Ana Souza" autocomplete="name" />
-          <div class="error error--below" id="err-fullName-below" aria-live="polite"></div>
         </div>
 
+        <!-- E-MAIL -->
         <div class="field-group">
           <label for="email">E-mail</label>
           <div class="error error--above" id="err-email-above" aria-live="polite"></div>
           <input id="email" name="email" type="email" placeholder="voce@exemplo.com" autocomplete="email" />
-          <div class="error error--below" id="err-email-below" aria-live="polite"></div>
         </div>
 
+        <!-- GITHUB -->
         <div class="field-group">
           <label for="github">GitHub</label>
-          <div class="hint">@opcional — adicionamos automaticamente se faltar</div>
+          <div class="hint">Adicionamos “@” automaticamente, se faltar</div>
           <div class="error error--above" id="err-github-above" aria-live="polite"></div>
           <input id="github" name="github" type="text" placeholder="@seuusuario" inputmode="verbatim" />
-          <div class="error error--below" id="err-github-below" aria-live="polite"></div>
         </div>
 
+        <!-- TIPO DO INGRESSO -->
         <div class="field-group">
           <label for="ticketType">Tipo do ingresso</label>
           <select id="ticketType" name="ticketType">
@@ -62,6 +61,7 @@
           </select>
         </div>
 
+        <!-- AVATAR -->
         <div class="field-group">
           <span class="label-like">Avatar</span>
           <div class="avatar-row">
@@ -71,33 +71,14 @@
           <div class="hint">Imagem quadrada recomendada (≥ 256×256)</div>
         </div>
 
+        <!-- CONFIRMAÇÃO -->
         <div class="field-group">
           <label class="checkbox">
             <input id="agree" name="agree" type="checkbox" />
             <span>Confirmo que os dados estão corretos</span>
           </label>
-          <div class="error error--below" id="err-agree-below" aria-live="polite"></div>
+          <div class="error error--above" id="err-agree-above" aria-live="polite"></div>
         </div>
-
-        <div class="divider"></div>
-
-        <fieldset class="field-group">
-          <legend>Como exibir erros (para o vídeo)</legend>
-          <div class="radio-row">
-            <label class="radio"><input type="radio" name="errMode" value="below" checked /> Abaixo do campo</label>
-            <label class="radio"><input type="radio" name="errMode" value="above" /> Acima do campo</label>
-            <label class="radio"><input type="radio" name="errMode" value="alert" /> Alert()</label>
-            <label class="radio"><input type="radio" name="errMode" value="toast" /> Toast (canto superior direito)</label>
-          </div>
-        </fieldset>
-
-        <fieldset class="field-group">
-          <legend>Regras de nome (para o vídeo)</legend>
-          <div class="radio-row">
-            <label class="radio"><input type="radio" name="nameRule" value="firstOnly" /> Apenas primeiro nome</label>
-            <label class="radio"><input type="radio" name="nameRule" value="fullName" checked /> Nome e sobrenome</label>
-          </div>
-        </fieldset>
 
         <div class="actions">
           <button type="submit" class="btn btn--primary" id="btnGenerate">Gerar ingresso</button>
@@ -109,10 +90,9 @@
     <section class="card preview-card" aria-labelledby="preview-title">
       <h2 id="preview-title">Prévia do ingresso</h2>
 
-      <!-- container que o canvas usará de referência para tamanhos/cores -->
       <div class="ticket ticket--blue" id="ticketDom">
         <div class="ticket__header">
-          <div class="logo-fake">FrontConf</div>
+          <div class="logo-fake">OneMoreConf</div>
           <div class="ticket__badge" id="previewTicketType">STANDARD</div>
         </div>
 
@@ -125,7 +105,7 @@
           <div class="ticket__right">
             <div class="ticket__qr--empty" aria-label="QR placeholder"></div>
             <div class="ticket__meta">
-              <div class="meta"><span>Evento</span><strong>FrontConf 2025</strong></div>
+              <div class="meta"><span>Evento</span><strong>OneMoreConf 2025</strong></div>
               <div class="meta"><span>Data</span><strong>30 Ago 2025</strong></div>
               <div class="meta"><span>Local</span><strong>Online</strong></div>
             </div>
@@ -152,13 +132,6 @@
     </div>
   </footer>
 
-  <!-- JS modular -->
-  <script src="./js/preview.js" defer></script>
-  <script src="./js/handle.js" defer></script>
-  <script src="./js/validation.js" defer></script>
-  <script src="./js/toast.js" defer></script>
-  <script src="./js/formModes.js" defer></script>
-  <script src="./js/download.js" defer></script>
-  <script src="./js/main.js" defer></script>
+  <script type="module" src="./js/main.js"></script>
 </body>
 </html>
