@@ -1,0 +1,22 @@
+:root{
+  --bg: #0b1224;
+  --card: #101a38;
+  --text: #e9eef7;
+  --muted: #a7b1c6;
+
+  --blue-50: #e6f0ff;
+  --blue-100:#cfe1ff;
+  --blue-300:#6ea8ff;
+  --blue-500:#2b6bff;
+  --blue-600:#1d4ed8;
+  --blue-800:#0c2b66;
+
+  --accent: #22d3ee;
+  --danger: #ff6b6b;
+
+  --glass: rgba(255,255,255,.06);
+  --border: rgba(255,255,255,.12);
+  --border-soft: rgba(255,255,255,.08);
+
+  --radius: 16px;
+}
