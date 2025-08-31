@@ -1,56 +1,114 @@
-import { formatHandle } from "./handle.js";
+import { Config } from "./config.js";
+import { setError } from "./errors.js";
 
-function setErrorAbove(id, message) {
-  const el = document.getElementById(`err-${id}-above`);
-  if (!el) return;
-  el.textContent = message || "";
+function onlyFirstNameOK(full) {
+  const parts = full.trim().split(/\s+/).filter(Boolean);
+  return parts.length === 1;
+}
+function fullNameOK(full) {
+  const parts = full.trim().split(/\s+/).filter(Boolean);
+  return parts.length >= 2;
+}
+function capitalizeWords(s) {
+  return s.replace(/\S+/g, (w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+}
+
+function normHandle(raw) {
+  let v = (raw || "").trim();
+  if (!v) return "";
+  if (Config.githubMode === "requireAt") {
+    return v; 
+  }
+  if (Config.githubMode === "autoAdd") {
+    return v.startsWith("@") ? v : "@" + v;
+  }
+  return v.startsWith("@") ? v : "@" + v;
 }
 
 function validateName() {
-  const fullName = document.getElementById("fullName").value.trim();
-  const parts = fullName.split(/\s+/).filter(Boolean);
-  if (parts.length < 2) {
-    setErrorAbove("fullName", "Informe nome e sobrenome.");
+  const el = document.getElementById("fullName");
+  let v = el.value;
+
+  if (Config.autoCapitalize && v.trim()) {
+    v = capitalizeWords(v);
+    el.value = v;
+  }
+
+  const ok =
+    (Config.nameRule === "first" && onlyFirstNameOK(v)) ||
+    (Config.nameRule === "full" && fullNameOK(v));
+
+  if (!ok) {
+    const msg =
+      Config.nameRule === "first"
+        ? "Informe apenas o primeiro nome."
+        : "Informe nome e sobrenome.";
+    setError("fullName", msg);
     return false;
   }
-  setErrorAbove("fullName", "");
+
+  setError("fullName", "");
   return true;
 }
 
 function validateEmail() {
   const email = document.getElementById("email").value.trim();
-  if (!email.includes("@") || !email.includes(".")) {
-    setErrorAbove("email", "Informe um e-mail válido (ex.: voce@exemplo.com).");
+  const ok = email.includes("@") && email.includes(".");
+  if (!ok) {
+    setError("email", "Informe um e-mail válido (ex.: voce@exemplo.com).");
     return false;
   }
-  setErrorAbove("email", "");
+  setError("email", "");
   return true;
 }
 
 function validateGithub() {
-  const ghInput = document.getElementById("github");
-  let raw = ghInput.value.trim();
-  let username = raw.startsWith("@") ? raw.slice(1) : raw;
-  const basicValid =
-    username.length >= 2 &&
-    !username.includes(" ") &&
-    !username.includes("@");
-  if (!basicValid) {
-    setErrorAbove("github", "Usuário do GitHub inválido (ex.: @seuusuario).");
+  const input = document.getElementById("github");
+  let raw = input.value.trim();
+
+  // políticas de @
+  if (Config.githubMode === "requireAt") {
+    const ok = raw.startsWith("@") && raw.length > 1 && !raw.includes(" ");
+    if (!ok || raw.length - 1 < Config.githubMinLen) {
+      setError("github", "Inclua @ e um usuário válido (ex.: @seuusuario).");
+      return false;
+    }
+    setError("github", "");
+    return true;
+  }
+
+  if (Config.githubMode === "autoAdd") {
+    const withAt = raw.startsWith("@") ? raw : "@" + raw;
+    const username = withAt.slice(1);
+    const ok = username.length >= Config.githubMinLen && !username.includes(" ") && !username.includes("@");
+    if (!ok) {
+      setError("github", "Usuário do GitHub inválido (ex.: @seuusuario).");
+      return false;
+    }
+    input.value = withAt;
+    setError("github", "");
+    return true;
+  }
+
+
+  const username = raw.startsWith("@") ? raw.slice(1) : raw;
+  const ok = username.length >= Config.githubMinLen && !username.includes(" ") && !username.includes("@");
+  if (!ok) {
+    setError("github", "Usuário do GitHub inválido (ex.: @seuusuario).");
     return false;
   }
-  ghInput.value = "@" + username;
-  setErrorAbove("github", "");
+  input.value = "@" + username;
+  setError("github", "");
   return true;
 }
 
 function validateAgree() {
-  const agree = document.getElementById("agree").checked;
+  const agree = document.getElementById("agree")?.checked;
   if (!agree) {
-    setErrorAbove("agree", "Confirme que os dados estão corretos.");
+    setError("agree", "Confirme que os dados estão corretos.");
     return false;
   }
-  setErrorAbove("agree", "");
+  setError("agree", "");
   return true;
 }
 
@@ -66,5 +124,5 @@ export const validateField = {
   fullName: validateName,
   email: validateEmail,
   github: validateGithub,
-  agree: validateAgree,
+  agree: validateAgree
 };
